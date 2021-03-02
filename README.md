@@ -53,3 +53,9 @@ listen.owner = www-data
 listen.group = haproxy
 chroot = /var/www/mineunit-badges
 ```
+
+#### Unstable test server
+
+Hosted for free at 000webhost. Service addrees is https://mineunit-badges.000webhostapp.com/
+
+By reading sources you can find out how to get API key to access service.
