@@ -1,6 +1,7 @@
 <?php
 
-require_once('utils.php')
+require_once('config.php');
+require_once('utils.php');
 
 function validate($data, $key) {
 	$value = isset($data[$key]) ? $data[$key] : null;
@@ -32,12 +33,14 @@ function create($account, $project, $id, $secret) {
 	// No need to encode after ctype_xdigit test passed
 	$color = validate_color($json, 'color') ? $json['color'] : "D0F055";
 
-	if (! is_dir($DATADIR)) {
-		mkdir($DATADIR, 0755, true);
+	$dir = DATADIR."/${account}/${project}";
+	if (! is_dir($dir)) {
+		mkdir($dir, 0755, true);
 	}
 
 	$data = "${label}-${value}-${color}";
-	if (file_put_contents($DATAFILE, $data) !== strlen($data)) { throwup(409); }
+	$datafile = "${dir}/${id}";
+	if (file_put_contents($datafile, $data) !== strlen($data)) { throwup(409); }
 
 	// Seems like it worked, or at least it did not crash
 	throwup(201);
