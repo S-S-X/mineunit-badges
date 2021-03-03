@@ -9,6 +9,10 @@ const STAGE_COMPLETE = 2;
 
 $auth_stage = isset($_GET['code']) ? STAGE_COMPLETE : STAGE_INITIATE;
 
+if (ENABLE_MAINTENANCE && $auth_stage == STAGE_INITIATE && rand(0,9) === 1) {
+	statefile_cleanup();
+}
+
 function validate_state($state) {
 	if (! is_string($state) || strlen($state) < 34) {
 		return false;

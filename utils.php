@@ -61,3 +61,16 @@ function validate_token($token) {
 	}
 	return false;
 }
+
+function statefile_cleanup() {
+	$prefix_len = strlen(STATEFILE_PREFIX);
+	$now = time();
+	$fsi = new FilesystemIterator(TEMPDIR, FilesystemIterator::NEW_CURRENT_AND_KEY | FilesystemIterator::SKIP_DOTS);
+	foreach ($fsi as $name => $file) {
+		// File is SplFileInfo instance: https://www.php.net/manual/en/class.splfileinfo.php
+		if (substr($name, 0, $prefix_len) === STATEFILE_PREFIX && $now - $file->getMTime() > STATEFILE_EXPIRY) {
+			// Remove expired statefile
+			unlink($file->getPathname());
+		}
+	}
+}

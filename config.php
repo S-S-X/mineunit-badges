@@ -10,6 +10,8 @@ const AUTH_SERVER = 'https://github.com/login/oauth/authorize';
 // --------------------------
 const STATEFILE_PREFIX = 'Mineunit-Badges-';
 const STATEFILE_EXPIRY = 60 * 10;
+// Enable this to cleanup old temporary statefiles without separate cronjob
+const ENABLE_MAINTENANCE = true;
 // Directory for public data, no need to protect contents
 const DATADIR = 'data';
 // Directory for private data, this should be somewhat protected
